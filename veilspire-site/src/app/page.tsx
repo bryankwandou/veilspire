@@ -245,6 +245,7 @@ export default function Home() {
 
       <footer className="flex flex-col items-center gap-3 border-t border-white/10 px-6 py-10 text-center text-xs text-white/50">
         <div className="flex gap-8 text-sm">
+          <Link002 href="/shop">Skin shop</Link002>
           <Link002 href={repo}>Source</Link002>
           <Link003 href={`${repo}/releases`}>Releases</Link003>
           <Link002 href={`${repo}/issues`}>Report a bug</Link002>
