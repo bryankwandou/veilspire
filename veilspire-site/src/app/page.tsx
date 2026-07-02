@@ -93,6 +93,14 @@ export default function Home() {
             Get the Android APK
           </motion.a>
           <motion.a
+            href="/demo"
+            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(53,196,181,0.4)" }}
+            whileTap={{ scale: 0.97 }}
+            className="rounded-full border border-[#35C4B5]/60 px-8 py-3.5 font-semibold text-[#7FE7DC]"
+          >
+            Try the live preview
+          </motion.a>
+          <motion.a
             href={repo}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -245,6 +253,7 @@ export default function Home() {
 
       <footer className="flex flex-col items-center gap-3 border-t border-white/10 px-6 py-10 text-center text-xs text-white/50">
         <div className="flex gap-8 text-sm">
+          <Link002 href="/demo">Live preview</Link002>
           <Link002 href="/shop">Skin shop</Link002>
           <Link002 href={repo}>Source</Link002>
           <Link003 href={`${repo}/releases`}>Releases</Link003>
