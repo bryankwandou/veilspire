@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 
 import '../characters/characters.dart';
+import '../services/call_memory.dart';
 import '../services/groq_service.dart';
 
 enum CallState { idle, listening, thinking, speaking }
@@ -29,7 +30,8 @@ class _CallScreenState extends State<CallScreen>
   final _recorder = AudioRecorder();
   final _player = AudioPlayer();
   final _textCtrl = TextEditingController();
-  final List<Map<String, String>> _history = [];
+  late final List<Map<String, String>> _history =
+      CallMemory.historyFor(widget.character.id);
   final List<(bool fromUser, String text)> _transcript = [];
 
   CallState _state = CallState.idle;
@@ -53,8 +55,15 @@ class _CallScreenState extends State<CallScreen>
   }
 
   Future<void> _greet() async {
-    await _respond(
-        'The veil-link just connected. Greet the Wanderer like answering a call.');
+    final nthCall = CallMemory.beginCall(widget.character.id);
+    final prompt = nthCall == 1
+        ? 'The veil-link just connected. Greet the Wanderer like answering '
+            'a call.'
+        : 'The veil-link just connected again — this is call number '
+            '$nthCall with the Wanderer this session. Greet them like '
+            'someone you already know, referring back to your earlier '
+            'conversation if anything stood out.';
+    await _respond(prompt, record: false);
   }
 
   Future<void> _respond(String userMessage, {bool record = true}) async {

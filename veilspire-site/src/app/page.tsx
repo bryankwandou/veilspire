@@ -11,41 +11,48 @@ import { Link002, Link003 } from "@/components/ui/skiper-ui/skiper40";
 
 const cast = [
   {
-    name: "Lyra Windveil",
-    title: "Songstress of the Azure Meadow",
-    element: "Wind",
-    color: "#35C4B5",
-    line: "A bard who bends the breeze into melody. She will tease you before she trusts you.",
-  },
-  {
-    name: "Kaelen Dusk",
-    title: "Blade of the Sundered Watch",
-    element: "Storm",
+    name: "Veyra",
+    title: "The Shard-Weaver · Azure Meadow",
+    element: "Light-thread",
     color: "#7C5CFF",
-    line: "He guards a ruin nobody visits and carries a sword he refuses to name.",
+    line: "She spins fallen shard-dust into glowing thread and mends what the Sundering cracked. Optimism, for her, is a discipline.",
   },
   {
-    name: "Seraphine Ashbloom",
-    title: "Alchemist of the Ember Hollow",
-    element: "Ember",
-    color: "#FF6A5C",
-    line: "Half her lab is ash. The other half is about to be. She calls that progress.",
+    name: "Lyra",
+    title: "Keeper of the Second Sky · Mirror Lake",
+    element: "Reflection",
+    color: "#35C4B5",
+    line: "Six years of logbooks on a lake that reflects the wrong sky. She speaks little and misses nothing.",
   },
   {
-    name: "Oren Tidewalker",
-    title: "Keeper of the Mirror Lake",
-    element: "Tide",
-    color: "#3D8BFF",
-    line: "He reads tomorrow in still water and keeps every promise anyone has made him.",
+    name: "Kaelen",
+    title: "Forgehearth's Apprentice · Ember Hollow",
+    element: "Heat-forging",
+    color: "#B4552D",
+    line: "Everything he forges is one more thing the fire didn't get to keep. He'd rather show you than tell you.",
+  },
+  {
+    name: "Seraphine",
+    title: "Last Vigil of the Watch · Sundered Watch",
+    element: "Record-binding",
+    color: "#9E2B25",
+    line: "The last of the order that failed to stop the Sundering, cataloguing its records alone. She warms up slowly, and remembers if you do too.",
+  },
+  {
+    name: "Oren",
+    title: "The Wandering Trader · everywhere at once",
+    element: "No affinity, by choice",
+    color: "#C9A227",
+    line: "The one Attuned without a shard-gift, and the only one who knows all the others. Terrible with directions. Travels for a living.",
   },
 ];
 
 const regions: [string, string][] = [
-  ["Azure Meadow", "Rolling grass under drifting sky shards. Where every journey starts."],
-  ["Mirror Lake", "Water so calm it answers questions. Oren lives on its shore."],
-  ["Ember Hollow", "Scorched ground, warm light, frequent explosions from one particular lab."],
-  ["Sundered Watch", "Broken pillars of a fallen fortress. Kaelen keeps the old vigil."],
-  ["The Veilspire", "The tower at the center of the realm, where the sky broke first."],
+  ["Azure Meadow", "Rolling terraces and Hallowlight Village, where a cracked sundial still keeps its post. Every journey starts here."],
+  ["Mirror Lake", "Water so still it reflects a second sky that doesn't match the first. Lyra keeps the lighthouse and the logbook."],
+  ["Ember Hollow", "Scarred by a shard-fall wildfire, rebuilt around a forge that has not gone out since. Kaelen works its anvil."],
+  ["Sundered Watch", "Ruins of the order that watched the sky the night it broke. Seraphine guards what remains of the Archive."],
+  ["The Veilspire", "The tower at the center of the realm, taller every year, unclimbed since the Sundering."],
 ];
 
 const repo = "https://github.com/nayrbryanGaming/veilspire";
@@ -63,7 +70,7 @@ export default function Home() {
           VEILSPIRE
         </h1>
         <p className="hero-rise hero-rise-3 mt-5 max-w-xl text-center text-white/65">
-          Echoes of the Sundered Sky. Wander a broken realm, meet the four who
+          Echoes of the Sundered Sky. Wander a broken realm, meet the five who
           stayed behind, and ring them whenever you like. They pick up. They
           talk back. They remember.
         </p>
@@ -106,7 +113,7 @@ export default function Home() {
         className="border-y border-white/10 py-4"
         items={[
           "FIVE REGIONS",
-          "FOUR VOICES",
+          "FIVE VOICES",
           "ONE BROKEN SKY",
           "LIVE VOICE CALLS",
           "LIVE VIDEO CALLS",
@@ -154,7 +161,7 @@ export default function Home() {
         <Reveal>
           <h2 className="text-4xl font-bold sm:text-5xl">Who picks up</h2>
           <p className="mt-4 max-w-xl text-white/60">
-            Four stayed when the sky fell. Each keeps a region alive, and each
+            Five stayed when the sky fell. Each keeps a region alive, and each
             keeps a line you can reach.
           </p>
         </Reveal>

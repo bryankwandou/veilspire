@@ -28,10 +28,11 @@ const TREASURY = new PublicKey(
 );
 
 const skins = [
-  { id: "lyra-gale", name: "Lyra · Gale Song", price: 0.05, color: "#35C4B5" },
-  { id: "kaelen-void", name: "Kaelen · Voidsteel", price: 0.08, color: "#7C5CFF" },
-  { id: "sera-flare", name: "Seraphine · Flarebloom", price: 0.05, color: "#FF6A5C" },
-  { id: "oren-deep", name: "Oren · Deepcurrent", price: 0.08, color: "#3D8BFF" },
+  { id: "veyra-loom", name: "Veyra · Evening Loom", price: 0.05, color: "#7C5CFF" },
+  { id: "lyra-tide", name: "Lyra · Low Shard-Tide", price: 0.05, color: "#35C4B5" },
+  { id: "kaelen-ember", name: "Kaelen · First Commission", price: 0.08, color: "#B4552D" },
+  { id: "sera-vigil", name: "Seraphine · Archive Formal", price: 0.08, color: "#9E2B25" },
+  { id: "oren-road", name: "Oren · Faded Gold Road", price: 0.05, color: "#C9A227" },
 ];
 
 function ShopInner() {

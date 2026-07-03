@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../characters/characters.dart';
+import '../characters/npcs.dart';
 
 const double kWorldSize = 3200;
 
@@ -36,6 +37,12 @@ class VeilspireGame extends FlameGame {
         ..position = Vector2(c.worldPosition.dx, c.worldPosition.dy);
       npcs.add(npc);
       world.add(npc);
+    }
+
+    // Background population: archetype villagers with barked lines.
+    for (final f in buildPopulation()) {
+      world.add(FlavorNpcComponent(f)
+        ..position = Vector2(f.position.dx, f.position.dy));
     }
 
     player = PlayerComponent()..position = Vector2(1600, 1600);
@@ -114,6 +121,120 @@ class TerrainComponent extends PositionComponent {
       26,
       Paint()..color = const Color(0xFF9E7BFF),
     );
+    _landmarks(canvas);
+  }
+
+  /// Named places from the world atlas, drawn as simple structures.
+  void _landmarks(Canvas canvas) {
+    final p = Paint();
+
+    // Hallowlight Village: limestone houses with slate roofs.
+    for (final (hx, hy) in [(880.0, 760.0), (1000.0, 740.0), (940.0, 900.0)]) {
+      p.color = const Color(0xFFD8D2C4);
+      canvas.drawRect(Rect.fromLTWH(hx, hy, 70, 52), p);
+      p.color = const Color(0xFF4C566A);
+      canvas.drawPath(
+        Path()
+          ..moveTo(hx - 6, hy)
+          ..lineTo(hx + 35, hy - 30)
+          ..lineTo(hx + 76, hy)
+          ..close(),
+        p,
+      );
+    }
+    // The cracked sundial monument.
+    p.color = const Color(0xFFB8B2A4);
+    canvas.drawCircle(const Offset(960, 830), 16, p);
+    _label(canvas, 'Hallowlight Village', 940, 700);
+
+    // The Terraces: stepped field lines west of the village.
+    p.color = const Color(0x3314532D);
+    for (int i = 0; i < 4; i++) {
+      canvas.drawRect(Rect.fromLTWH(620, 1060.0 + i * 34, 220, 22), p);
+    }
+    _label(canvas, 'The Terraces', 660, 1020);
+
+    // Windrow Bridge, crossing toward Mirror Lake.
+    p.color = const Color(0xFF8A6B3F);
+    canvas.drawRect(const Rect.fromLTWH(1800, 1720, 150, 36), p);
+    p.color = const Color(0xFF6B4F2A);
+    for (int i = 0; i < 5; i++) {
+      canvas.drawRect(Rect.fromLTWH(1808.0 + i * 30, 1720, 6, 36), p);
+    }
+    _label(canvas, 'Windrow Bridge', 1790, 1690);
+
+    // Stillwater Dock: stilt walkway onto the lake.
+    p.color = const Color(0xFF6B4F2A);
+    canvas.drawRect(const Rect.fromLTWH(1980, 1990, 130, 22), p);
+    canvas.drawRect(const Rect.fromLTWH(2080, 2010, 22, 90), p);
+    _label(canvas, 'Stillwater Dock', 1960, 1950);
+
+    // Lyra's Watch: the lighthouse tower on the shore.
+    p.color = const Color(0xFFE8E4DA);
+    canvas.drawRect(const Rect.fromLTWH(2200, 2080, 34, 96), p);
+    p.color = const Color(0xFF35C4B5);
+    canvas.drawRect(const Rect.fromLTWH(2200, 2104, 34, 16), p);
+    canvas.drawCircle(const Offset(2217, 2072), 12, p);
+    _label(canvas, "Lyra's Watch", 2180, 2040);
+
+    // The Drowned Chapel: half-submerged in the lake.
+    p.color = const Color(0xFF9AA5B8);
+    canvas.drawRect(const Rect.fromLTWH(2440, 2430, 80, 40), p);
+    canvas.drawPath(
+      Path()
+        ..moveTo(2440, 2430)
+        ..lineTo(2480, 2398)
+        ..lineTo(2520, 2430)
+        ..close(),
+      p,
+    );
+    _label(canvas, 'The Drowned Chapel', 2400, 2370);
+
+    // Forgehearth and Kaelen's Forge: the communal fire.
+    p.color = const Color(0xFF5A4638);
+    canvas.drawRect(const Rect.fromLTWH(780, 2200, 90, 64), p);
+    p.color = const Color(0xFFFF8C42);
+    canvas.drawCircle(const Offset(825, 2196), 12, p);
+    p.color = const Color(0xFFFFC24B);
+    canvas.drawCircle(const Offset(825, 2192), 6, p);
+    _label(canvas, "Forgehearth · Kaelen's Forge", 740, 2160);
+
+    // The Cinder Flats marker.
+    _label(canvas, 'The Cinder Flats', 1020, 2440);
+
+    // The Cracked Observatory: dome shattered outward.
+    p.color = const Color(0xFF6E7B8E);
+    canvas.drawRect(const Rect.fromLTWH(2200, 620, 90, 110), p);
+    p.color = const Color(0xFF8B93A7);
+    canvas.drawArc(
+      const Rect.fromLTWH(2192, 570, 106, 80),
+      math.pi,
+      math.pi * 0.7,
+      true,
+      p,
+    );
+    _label(canvas, 'The Cracked Observatory', 2150, 540);
+    _label(canvas, 'The Archive Below', 2320, 780);
+
+    // The tower label.
+    _label(canvas, 'The Veilspire', kWorldSize / 2 - 55, kWorldSize / 2 + 110);
+  }
+
+  void _label(Canvas canvas, String text, double x, double y) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1.2,
+          shadows: [Shadow(blurRadius: 6, color: Colors.black)],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, Offset(x, y));
   }
 
   Color _tileColor(double x, double y) {
@@ -226,6 +347,74 @@ class PlayerComponent extends PositionComponent {
       Rect.fromCircle(center: Offset(23, 12 + bob), radius: 11.5),
       math.pi, math.pi, false, p,
     );
+  }
+}
+
+/// A background villager: archetype-driven, shows a barked line when the
+/// Wanderer walks close.
+class FlavorNpcComponent extends PositionComponent
+    with HasGameReference<VeilspireGame> {
+  FlavorNpcComponent(this.npc)
+      : super(size: Vector2(36, 48), anchor: Anchor.center);
+
+  final FlavorNpc npc;
+  double _t = 0;
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    _t += dt;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final bob = math.sin(_t * 1.8) * 2;
+    final p = Paint();
+    p.color = const Color(0x33000000);
+    canvas.drawOval(
+        Rect.fromCenter(center: const Offset(18, 46), width: 26, height: 8),
+        p);
+    p.color = npc.archetype.outfit;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(7, 20 + bob, 22, 24),
+        const Radius.circular(7),
+      ),
+      p,
+    );
+    p.color = const Color(0xFFEED8C0);
+    canvas.drawCircle(Offset(18, 12 + bob), 8, p);
+
+    final near = game.player.position.distanceTo(position) < 130;
+    if (near) {
+      // Bark bubble.
+      final tp = TextPainter(
+        text: TextSpan(
+          text: '${npc.name} · ${npc.archetype.role}\n${npc.bark}',
+          style: const TextStyle(color: Colors.white, fontSize: 10.5),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout(maxWidth: 190);
+      final rect = Rect.fromLTWH(
+          18 - tp.width / 2 - 8, -tp.height - 26, tp.width + 16, tp.height + 12);
+      p.color = const Color(0xDD0F1626);
+      canvas.drawRRect(
+          RRect.fromRectAndRadius(rect, const Radius.circular(8)), p);
+      tp.paint(canvas, Offset(rect.left + 8, rect.top + 6));
+    } else {
+      final tp = TextPainter(
+        text: TextSpan(
+          text: npc.name.split(' ').first,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.75),
+            fontSize: 9.5,
+            shadows: const [Shadow(blurRadius: 3, color: Colors.black)],
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      tp.paint(canvas, Offset(18 - tp.width / 2, -14));
+    }
   }
 }
 
