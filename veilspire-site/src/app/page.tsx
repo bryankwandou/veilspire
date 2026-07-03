@@ -5,7 +5,6 @@ import {
   Reveal,
   TiltCard,
   Parallax,
-  SplitText,
   Marquee,
 } from "@/components/motion";
 import { Link002, Link003 } from "@/components/ui/skiper-ui/skiper40";
@@ -57,33 +56,18 @@ export default function Home() {
       {/* HERO */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
         <ShardField />
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mb-4 text-xs tracking-[0.4em] text-white/50"
-        >
+        <p className="hero-rise hero-rise-1 mb-4 text-xs tracking-[0.4em] text-white/50">
           AN OPEN WORLD YOU CAN CALL
-        </motion.p>
-        <h1 className="text-center text-6xl font-extrabold tracking-[0.18em] sm:text-8xl">
-          <SplitText text="VEILSPIRE" />
+        </p>
+        <h1 className="hero-rise hero-rise-2 text-center text-6xl font-extrabold tracking-[0.18em] sm:text-8xl">
+          VEILSPIRE
         </h1>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.7 }}
-          className="mt-5 max-w-xl text-center text-white/65"
-        >
+        <p className="hero-rise hero-rise-3 mt-5 max-w-xl text-center text-white/65">
           Echoes of the Sundered Sky. Wander a broken realm, meet the four who
           stayed behind, and ring them whenever you like. They pick up. They
           talk back. They remember.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4 }}
-          className="mt-9 flex flex-wrap items-center justify-center gap-4"
-        >
+        </p>
+        <div className="hero-rise hero-rise-4 mt-9 flex flex-wrap items-center justify-center gap-4">
           <motion.a
             href={`${repo}/releases`}
             whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(124,92,255,0.5)" }}
@@ -108,7 +92,7 @@ export default function Home() {
           >
             Read the source
           </motion.a>
-        </motion.div>
+        </div>
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}

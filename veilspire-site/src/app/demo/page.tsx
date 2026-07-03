@@ -9,9 +9,9 @@ import { Reveal } from "@/components/motion";
 
 const LINES = [
   "You found me. Most travelers walk right past the meadow.",
-  "The spire cracked, the sky fell, and I woke up made of oak. Strange week.",
-  "Ring me any time. Wood carries sound better than you would think.",
-  "Ask Lyra about the wind. Ask me about staying still for a hundred years.",
+  "I weave fallen sky shards into thread. Careful, the ends still spark.",
+  "Ring me any time. A woven line never drops a call.",
+  "Ask Lyra about the wind. Ask me why the sky broke where it did.",
 ];
 
 export default function DemoPage() {
@@ -61,20 +61,22 @@ export default function DemoPage() {
               LIVE BUILD PREVIEW · IN BROWSER
             </p>
             <h1 className="mt-3 text-4xl font-bold sm:text-5xl">
-              The Marionette of Azure Meadow
+              Veyra, the Shard-Weaver
             </h1>
             <p className="mt-5 text-white/60">
-              This is the fifth resident of the realm, rendered here exactly as
-              she moves on a phone. A carved girl the Veilspire woke when the
-              sky broke, still learning what a heartbeat is for. Drag inside
-              the screen to orbit the camera, pinch or scroll to zoom, and
-              press the call button to hear how she talks.
+              The fifth resident of the realm, rendered here exactly as she
+              moves on a phone. Veyra gathers the shards that fell when the
+              sky broke and weaves them into thread; the beads in her hair
+              still glow with it. She is entirely our own design, modeled,
+              rigged, and animated in-house. Drag inside the screen to orbit
+              the camera, scroll to zoom, and press the call button to hear
+              how she talks.
             </p>
             <p className="mt-4 text-white/60">
               The frame around her mirrors the Android build: joystick on the
               left, call controls on the right, region name up top. What you
-              see moving is a fully rigged skeleton with its own idle motion,
-              streamed as a 15 MB asset.
+              see moving is a full skeleton with breathing, twin-tail sway,
+              and a rippling skirt, streamed as a one-megabyte asset.
             </p>
             <div className="mt-8 flex gap-4 text-sm">
               <Link
@@ -103,7 +105,7 @@ export default function DemoPage() {
               {/* @ts-expect-error custom element */}
               <model-viewer
                 ref={viewerRef}
-                src="/models/marionette.glb"
+                src="/models/veyra.glb"
                 camera-controls
                 autoplay
                 interaction-prompt="none"
@@ -123,7 +125,7 @@ export default function DemoPage() {
                     />
                   </div>
                   <p className="text-xs text-white/50">
-                    Waking the Marionette · {progress}%
+                    Calling Veyra · {progress}%
                   </p>
                 </div>
               )}
@@ -174,7 +176,7 @@ export default function DemoPage() {
                   className="absolute bottom-36 left-6 right-6 z-10 rounded-2xl border border-white/15 bg-black/60 p-4 backdrop-blur"
                 >
                   <p className="text-[10px] tracking-[0.25em] text-[#35C4B5]">
-                    THE MARIONETTE · ON CALL
+                    VEYRA · ON CALL
                   </p>
                   <p className="mt-2 text-sm text-white/85">{line}</p>
                   <button
