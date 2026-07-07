@@ -3,7 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { Reveal } from "@/components/motion";
+import { SolanaProviders } from "../shop/providers";
+
+const WalletMultiButton = dynamic(
+  () =>
+    import("@solana/wallet-adapter-react-ui").then(
+      (m) => m.WalletMultiButton,
+    ),
+  { ssr: false },
+);
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -15,6 +26,15 @@ const LINES = [
 ];
 
 export default function DemoPage() {
+  return (
+    <SolanaProviders>
+      <DemoInner />
+    </SolanaProviders>
+  );
+}
+
+function DemoInner() {
+  const { publicKey, connected } = useWallet();
   const viewerRef = useRef<any>(null);
   const [loaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -78,6 +98,20 @@ export default function DemoPage() {
               see moving is a full skeleton with breathing, twin-tail sway,
               and a rippling skirt, streamed as a one-megabyte asset.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <WalletMultiButton />
+              {connected && publicKey && (
+                <span className="rounded-full border border-white/15 px-4 py-2 text-xs text-white/70">
+                  Signed in as {publicKey.toBase58().slice(0, 4)}…
+                  {publicKey.toBase58().slice(-4)}
+                </span>
+              )}
+            </div>
+            <p className="mt-3 text-xs text-white/40">
+              Your wallet is your identity in the realm. No email, no
+              password; the address you connect is the name the residents
+              know you by.
+            </p>
             <div className="mt-8 flex gap-4 text-sm">
               <Link
                 href="/"
@@ -133,7 +167,9 @@ export default function DemoPage() {
               {/* HUD: region label */}
               <div className="pointer-events-none absolute left-0 right-0 top-10 z-10 flex justify-center">
                 <span className="rounded-full bg-black/40 px-4 py-1.5 text-[10px] tracking-[0.3em] text-white/70 backdrop-blur">
-                  AZURE MEADOW
+                  {connected && publicKey
+                    ? `AZURE MEADOW · ${publicKey.toBase58().slice(0, 4)}…${publicKey.toBase58().slice(-4)}`
+                    : "AZURE MEADOW · GUEST"}
                 </span>
               </div>
 
